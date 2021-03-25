@@ -2,7 +2,7 @@ import os, io, json, sys
 
 if sys.platform == 'linux':
     import pwd
-from helpers import SpikeGLX_utils
+from .helpers import SpikeGLX_utils
 
 import numpy as np
 

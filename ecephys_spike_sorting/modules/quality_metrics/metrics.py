@@ -350,7 +350,11 @@ def calculate_pc_metrics(spike_clusters,
 
             isolation_distances[cluster_id], l_ratios[cluster_id] = mahalanobis_metrics(all_pcs, all_labels, cluster_id)
 
-            d_primes[cluster_id] = lda_metrics(all_pcs, all_labels, cluster_id)
+            try:
+                d_primes[cluster_id] = lda_metrics(all_pcs, all_labels, cluster_id)
+            except ValueError as e:
+                print(f'ValueError when computing dprime for cluster #{cluster_id}: {str(e)}')
+                d_primes[cluster_id] = np.nan
 
             nn_hit_rates[cluster_id], nn_miss_rates[cluster_id] = nearest_neighbors_metrics(all_pcs, all_labels, cluster_id, max_spikes_for_nn, n_neighbors)
 

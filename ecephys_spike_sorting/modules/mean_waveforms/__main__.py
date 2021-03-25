@@ -54,7 +54,7 @@ def calculate_mean_waveforms(args):
         print(cwaves_cmd)
         
         # make the C_Waves call
-        subprocess.call(cwaves_cmd)
+        subprocess.call(cwaves_cmd, shell=True)
 
         
         # C_Waves writes out files of the waveforms and snr

@@ -58,16 +58,18 @@ def createInputJson(output_file,
                     ks_LTseed = 1,
                     ks_templateRadius_um = 163,
                     c_Waves_snr_um = 160,
-                    qm_isi_thresh = 1.5/1000                    
+                    qm_isi_thresh = 1.5/1000,
+                    KS2ver='3.0',
                     ):
 
     # hard coded paths to code on your computer and system
-    ecephys_directory = r'D:\ecephys_fork\ecephys_spike_sorting\ecephys_spike_sorting'
+    ecephys_directory = r'/Volumes/scratch/neuropixels/packages/ecephys_spike_sorting_csc-uw/ecephys_spike_sorting'
     
     # location of kilosor respository and kilosort version
 
-    kilosort_repository = r'C:\Users\labadmin\Documents\jic\KS3_fork\Kilosort2'
-    KS2ver = '3.0'      # must equal '3.0', '2.5' or '2.0', and match the kiilosort_repository
+    kilosort_repository = r'/Volumes/scratch/neuropixels/matlab/external/Kilosort2'
+    # KS2ver = '3.0'      # must equal '3.0', '2.5' or '2.0', and match the kiilosort_repository
+    assert KS2ver in ['3.0', '2.5', '2.0']
     
     # KS 3.0 does not yet output pcs.
     if KS2ver == '3.0':
@@ -75,14 +77,14 @@ def createInputJson(output_file,
     else:
         include_pcs = True
     
-    npy_matlab_repository = r'C:\Users\labadmin\Documents\jic\npy-matlab-master'
-    catGTPath = r'C:\Users\labadmin\Documents\jic\CatGT-win'
-    tPrime_path=r'C:\Users\labadmin\Documents\jic\TPrime-win'
-    cWaves_path=r'C:\Users\labadmin\Documents\jic\C_Waves-win'
+    npy_matlab_repository = r'/Volumes/scratch/neuropixels/matlab/external/npy-matlab'
+    catGTPath = r'/Volumes/scratch/neuropixels/bin/CatGT-linux'
+    tPrime_path=r'/Volumes/scratch/neuropixels/bin/TPrime'
+    cWaves_path=r'/Volumes/scratch/neuropixels/bin/C_Waves-linux'
     
      
     # for config files and kilosort working space
-    kilosort_output_tmp = r'D:\kilosort_datatemp' 
+    kilosort_output_tmp = r'/Volumes/scratch/neuropixels/tmp' 
     
     
     # derived directory names

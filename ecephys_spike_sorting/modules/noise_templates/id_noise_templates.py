@@ -95,18 +95,27 @@ def id_noise_templates(cluster_ids, templates, channel_map, params):
     is_noise = np.zeros((templates.shape[0],),dtype='bool')
 
     print('Checking spread...')
-    is_noise += check_template_spread(templates, channel_map, params)
+    spread_noise = check_template_spread(templates, channel_map, params) 
+    is_noise += spread_noise
+    # is_noise += check_template_spread(templates, channel_map, params)
     print(' Total noise templates: ' + str(np.sum(is_noise)))
+    print(f' Spread noise ids: {np.where(spread_noise)}')
     #print(cluster_ids[np.where(is_noise)[0]])
 
     print('Checking temporal peaks...')
-    is_noise += check_template_temporal_peaks(templates, channel_map, params)
+    tmp_noise = check_template_temporal_peaks(templates, channel_map, params)
+    is_noise += tmp_noise
+    # is_noise += check_template_temporal_peaks(templates, channel_map, params)
     print(' Total noise templates: ' + str(np.sum(is_noise)))
+    print(f' temporal peak noise ids: {np.where(tmp_noise)}')
     #print(cluster_ids[np.where(is_noise)[0]])
 
     print('Checking spatial peaks...')
+    spatial_noise = check_template_spatial_peaks(templates, channel_map, params)
+    is_noise += spatial_noise
     is_noise += check_template_spatial_peaks(templates, channel_map, params)
     print(' Total noise templates: ' + str(np.sum(is_noise)))
+    print(f' spatial peak noise ids: {np.where(spatial_noise)}')
     #print(cluster_ids[np.where(is_noise)[0]])
 
     return cluster_ids, is_noise[cluster_ids]

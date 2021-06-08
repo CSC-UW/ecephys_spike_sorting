@@ -22,6 +22,7 @@ def classify_noise_templates(args):
                 args['ephys_params']['sample_rate'], \
                 convert_to_seconds = True)
 
+    cluster_ids_orig = cluster_ids
     if args['noise_waveform_params']['use_random_forest']:
         # use random forest classifier
         cluster_ids, is_noise = id_noise_templates_rf(spike_times, spike_clusters, \
@@ -31,8 +32,14 @@ def classify_noise_templates(args):
         cluster_ids, is_noise = id_noise_templates(cluster_ids, templates, np.squeeze(channel_map), \
             args['noise_waveform_params'])
 
-    mapping = {False: 'good', True: 'noise'}
-    labels = [mapping[value] for value in is_noise]
+    # mapping = {False: 'unsorted', True: 'noise'}
+    # labels = [mapping[value] for value in is_noise]
+    assert len(cluster_ids_orig) == len(cluster_ids)
+    assert np.all(cluster_ids_orig == cluster_ids)  # Sanity check
+    labels = cluster_quality  # Keep original labels and only modify noise units
+    for idx in np.where(is_noise)[0]:
+        labels[cluster_ids[idx]] = 'noise'
+
 
     write_cluster_group_tsv(cluster_ids, 
                             labels, 

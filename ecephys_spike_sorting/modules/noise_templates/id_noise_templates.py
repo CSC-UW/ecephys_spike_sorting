@@ -91,6 +91,7 @@ def id_noise_templates(cluster_ids, templates, channel_map, params):
     is_noise : boolean array, True at index of noise templates
 
     """
+    assert templates.shape[0] == len(cluster_ids)
 
     is_noise = np.zeros((templates.shape[0],),dtype='bool')
 
@@ -118,7 +119,7 @@ def id_noise_templates(cluster_ids, templates, channel_map, params):
     print(f' spatial peak noise ids: {np.where(spatial_noise)}')
     #print(cluster_ids[np.where(is_noise)[0]])
 
-    return cluster_ids, is_noise[cluster_ids]
+    return cluster_ids, is_noise
     
 
 def check_template_spread(templates, channel_map, params):

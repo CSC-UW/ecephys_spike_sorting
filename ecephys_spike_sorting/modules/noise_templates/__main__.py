@@ -36,6 +36,7 @@ def classify_noise_templates(args):
     # labels = [mapping[value] for value in is_noise]
     assert len(cluster_ids_orig) == len(cluster_ids)
     assert np.all(cluster_ids_orig == cluster_ids)  # Sanity check
+    assert len(is_noise) == len(cluster_ids)
     labels = cluster_quality  # Keep original labels and only modify noise units
     for idx in np.where(is_noise)[0]:
         labels[cluster_ids[idx]] = 'noise'

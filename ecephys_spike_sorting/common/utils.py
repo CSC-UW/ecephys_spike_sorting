@@ -191,7 +191,12 @@ def read_cluster_group_tsv(filename):
 
     info = np.genfromtxt(filename, dtype='str')
     cluster_ids = info[1:,0].astype('int')
-    cluster_quality = info[1:,1]
+    if info[0,1] == 'KSLabel':
+        cluster_quality = np.array(['unsorted' for i in range(len(cluster_ids))], dtype='str')
+    elif info[0,1] == 'group':
+        cluster_quality = info[1:,1]
+    else:
+        raise ValueError("Unrecognized format for `cluster_group.tsv`")
 
     return cluster_ids, cluster_quality
 
